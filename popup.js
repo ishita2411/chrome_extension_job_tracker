@@ -2,7 +2,7 @@ const saveJobBtn = document.getElementById('saveJobBtn');
 const messageDiv = document.getElementById('message');
 
 // Google Apps Script Web App endpoint
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyWy--OFMAT81P0nRpeqm7ZHJRnqNRP9IWKvL4vMNctZ1iTEIg4MRcK-WChCv6A0Jm/exec';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuPd2XFUfSCSaHmNsja8jtkWnnxMzOSowFwb-Pewy9oI9nGfYp_UpCkGpzFEId4R4t/exec';
 
 saveJobBtn.addEventListener('click', async () => {
   showMessage('Getting current page...', 'info');
@@ -27,7 +27,6 @@ saveJobBtn.addEventListener('click', async () => {
     // Send the URL to Google Sheets
     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -37,7 +36,15 @@ saveJobBtn.addEventListener('click', async () => {
       }),
     });
 
-    showMessage('Job link saved successfully!', 'success');
+    const result = await response.json();
+
+    if (result.status === 'duplicate') {
+      showMessage('This job link already saved!', 'error');
+    } else if (result.status === 'success') {
+      showMessage('Job link saved successfully!', 'success');
+    } else {
+      showMessage('Error: ' + result.message, 'error');
+    }
   } catch (error) {
     showMessage('Error saving job link. Check console.', 'error');
     console.error('Error:', error);
