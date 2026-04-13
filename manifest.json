@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Job Tracker Helper",
+  "description": "A simple Chrome extension starter with a popup.",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": []
+}

@@ -1,0 +1,36 @@
+:root {
+  --background: #ffffff;
+  --text: #111111;
+  --primary: #007bff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+.container {
+  padding: 16px;
+  width: 260px;
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.95;
+}
+
+.message {
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
