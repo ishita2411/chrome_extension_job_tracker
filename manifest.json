@@ -6,7 +6,7 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": [],
+  "permissions": ["tabs"],
   "host_permissions": [
     "https://script.google.com/macros/d/*/usercallback"
   ]
