@@ -9,8 +9,15 @@
   <body>
     <div class="container">
       <h1>Job Tracker</h1>
-      <p>Welcome! This is a basic Chrome extension popup.</p>
-      <button id="greetBtn">Show Message</button>
+      <form id="jobForm">
+        <input
+          type="text"
+          id="jobLink"
+          placeholder="Paste job link here"
+          required
+        />
+        <button type="submit">Save Job</button>
+      </form>
       <div id="message" class="message"></div>
     </div>
     <script src="popup.js"></script>
