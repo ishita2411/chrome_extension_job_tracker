@@ -1,8 +1,35 @@
 const saveJobBtn = document.getElementById('saveJobBtn');
 const messageDiv = document.getElementById('message');
+const companyNameInput = document.getElementById('companyName');
 
 // Google Apps Script Web App endpoint
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuPd2XFUfSCSaHmNsja8jtkWnnxMzOSowFwb-Pewy9oI9nGfYp_UpCkGpzFEId4R4t/exec';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw7Dx-I47WpzZKsfSJzkz_YNyaO1xeLLLpQaLJk_wZlHQ2SPRiq476AGGNsXysvz4/exec';
+
+// Load company name when popup opens
+window.addEventListener('load', async () => {
+  try {
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const currentTab = tabs[0];
+    
+    // Use sendMessage with Promise for better error handling
+    try {
+      const response = await chrome.tabs.sendMessage(currentTab.id, { action: 'getCompanyName' });
+      if (response && response.companyName) {
+        companyNameInput.value = response.companyName;
+      }
+    } catch (error) {
+      console.log('Content script not available on this page:', error.message);
+    }
+    
+    // Clear any loading messages
+    messageDiv.textContent = '';
+    messageDiv.className = 'message';
+  } catch (error) {
+    console.error('Error loading company name:', error);
+    messageDiv.textContent = '';
+    messageDiv.className = 'message';
+  }
+});
 
 saveJobBtn.addEventListener('click', async () => {
   showMessage('Getting current page...', 'info');
@@ -22,9 +49,17 @@ saveJobBtn.addEventListener('click', async () => {
       return;
     }
 
+    // Get company name from input
+    const companyName = companyNameInput.value.trim();
+
+    if (!companyName) {
+      showMessage('Please enter a company name', 'error');
+      return;
+    }
+
     showMessage('Saving...', 'info');
 
-    // Send the URL to Google Sheets
+    // Send the URL and company name to Google Sheets
     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
       headers: {
@@ -32,6 +67,7 @@ saveJobBtn.addEventListener('click', async () => {
       },
       body: JSON.stringify({
         jobLink: jobLink,
+        companyName: companyName,
         timestamp: new Date().toISOString(),
       }),
     });

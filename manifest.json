@@ -8,6 +8,15 @@
   },
   "permissions": ["tabs"],
   "host_permissions": [
-    "https://script.google.com/macros/d/*/usercallback"
+    "https://script.google.com/macros/d/*/usercallback",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
   ]
 }
