@@ -68,7 +68,7 @@ saveJobBtn.addEventListener('click', async () => {
       body: JSON.stringify({
         jobLink: jobLink,
         companyName: companyName,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString().split('T')[0],
       }),
     });
 
