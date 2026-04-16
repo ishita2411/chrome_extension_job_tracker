@@ -3,7 +3,7 @@ const messageDiv = document.getElementById('message');
 const companyNameInput = document.getElementById('companyName');
 
 // Google Apps Script Web App endpoint
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw7Dx-I47WpzZKsfSJzkz_YNyaO1xeLLLpQaLJk_wZlHQ2SPRiq476AGGNsXysvz4/exec';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxeY38iALG_JEp5aHcTK2xLOXwjUyqVnuJdlIb8OUQEDXFOevM5CjGKLto43iUCvfP-/exec';
 
 // Load company name when popup opens
 window.addEventListener('load', async () => {
